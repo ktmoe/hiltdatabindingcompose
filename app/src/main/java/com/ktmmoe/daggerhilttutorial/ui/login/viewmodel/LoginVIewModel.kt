@@ -6,11 +6,14 @@ import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ktmmoe.daggerhilttutorial.data.model.LoginUser
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Created by ktmmoe on 25, May, 2021
  **/
-class LoginViewModel: ViewModel() , Observable{
+@HiltViewModel
+class LoginViewModel @Inject constructor(): ViewModel() , Observable{
 
     @Bindable
     val emailAddress: MutableLiveData<String> = MutableLiveData()
@@ -23,8 +26,8 @@ class LoginViewModel: ViewModel() , Observable{
     }
 
     fun onLoginClicked() {
-        val mail = emailAddress.value!!
-        val mPassword = password.value!!
+        val mail = emailAddress.value ?: ""
+        val mPassword = password.value ?: ""
         if (Patterns.EMAIL_ADDRESS.matcher(mail).matches() || mPassword.isNotEmpty() )
             validInputs.postValue(true)
         else validInputs.postValue(false)
