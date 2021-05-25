@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.ktmmoe.daggerhilttutorial.R
 import com.ktmmoe.daggerhilttutorial.data.model.User
+import com.ktmmoe.daggerhilttutorial.databinding.ActivityMainBinding
 import com.ktmmoe.daggerhilttutorial.ui.main.adapter.MainAdapter
 import com.ktmmoe.daggerhilttutorial.ui.main.viewmodel.MainViewModel
 import com.ktmmoe.daggerhilttutorial.utils.Status
@@ -19,6 +20,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var activityMainBinding: ActivityMainBinding
+
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var mainAdapter: MainAdapter
 
@@ -26,8 +29,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        dataBindTitle()
         setupUI()
         setupObserver()
+    }
+
+    private fun dataBindTitle() {
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        activityMainBinding.titleVariable = User(name = "hey name")
     }
 
     private fun setupUI() {
